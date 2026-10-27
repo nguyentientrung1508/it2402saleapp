@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route('/')
 def index():
     categories = [{
         'id': 1,
@@ -14,11 +14,9 @@ def index():
     }, {
         'id': 3,
         'name': 'Laptop'
-    }
-    ]
+    }]
 
     products = [{
-
         "id": 1,
         "name": "iPhone 7 Plus",
         "description": "Apple, 32GB, RAM: 3GB, iOS13",
@@ -43,7 +41,6 @@ def index():
             "https://res.cloudinary.com/dxxwcby8l/image/upload/v1647248722/r8sjly3st7estapvj19u.jpg",
         "category_id": 1
     }, {
-
         "id": 1,
         "name": "iPhone 7 Plus",
         "description": "Apple, 32GB, RAM: 3GB, iOS13",
@@ -68,7 +65,6 @@ def index():
             "https://res.cloudinary.com/dxxwcby8l/image/upload/v1647248722/r8sjly3st7estapvj19u.jpg",
         "category_id": 1
     }, {
-
         "id": 1,
         "name": "iPhone 7 Plus",
         "description": "Apple, 32GB, RAM: 3GB, iOS13",
@@ -94,17 +90,33 @@ def index():
         "category_id": 1
     }]
 
-    kw = request.args.get('kw')
+    kw = request.args.get("kw")
     if kw:
         products = [p for p in products if p['name'].find(kw) >= 0]
 
-    cate_id = request.args.get('category_id')
+    cate_id = request.args.get("category_id")
     if cate_id:
-        products =[p for p in products if p['category_id']==int(cate_id)]
+        products = [p for p in products if p['category_id'] == int(cate_id)]
+
+    return render_template('index.html', categories=categories, products=products)
+
+    # @app.route('/login')
+    # def login_view():
+    #     return render_template('login.html')
+    #
+    # @app.route('/register')
+    # def register_view():
+    #     return render_template('register.html')
 
 
+@app.route('/login')
+def login_view():
+    return render_template('login.html')
 
-    return render_template('index.html', categories=categories, products = products)
+
+@app.route('/register')
+def register_view():
+    return render_template('login.html')
 
 
 if __name__ == '__main__':
